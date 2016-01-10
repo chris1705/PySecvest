@@ -1,7 +1,7 @@
 # PySecvest
 Python module to access status information provided by ABUS Secvest alarm system.
 
-The current version was just wirtten 'quick and dirty'. It does only provide read-only features.
+The current version was just wirtten 'quick and dirty', so it does only provide read-only features. Please do not use it in production!
 
 # Compatibility
 Probably the module is only compatible with the current version of the Abus Secvest (FUAA50000) 
