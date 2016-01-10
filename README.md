@@ -3,6 +3,9 @@ Python module to access status information provided by ABUS Secvest alarm system
 
 The current version was just wirtten 'quick and dirty'. It does only provide read-only features.
 
+# Compatibility
+Probably the module is only compatible with the current version of the Abus Secvest (FUAA50000) 
+
 # Example usage
 ```python
 
