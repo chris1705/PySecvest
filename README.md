@@ -7,7 +7,7 @@ The current version does only provide read-only features.
 ```python
 
 from secvest import Secvest
-secvest = Secvest(hostname="192.168.178.11", username="Administrator", password="123456")
+secvest = Secvest(hostname="192.168.178.2", username="Administrator", password="123456")
 
 # Get system info
 print secvest.get_system()
@@ -17,5 +17,8 @@ print secvest.get_partitions()
 
 # Get info about partition 1
 print secvest.get_partition(1)
+
+# Logout from secvest
+secvest.logout()
 
 ```
