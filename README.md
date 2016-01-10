@@ -1,7 +1,7 @@
 # PySecvest
 Python module to access status information provided by ABUS Secvest alarm system.
 
-The current version does only provide read-only features.
+The current version was just wirtten 'quick and dirty'. It does only provide read-only features.
 
 # Example usage
 ```python
