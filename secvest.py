@@ -17,7 +17,7 @@ requests.packages.urllib3.disable_warnings()
 class Secvest(object):
 
     DEFAULT_PORT = 4433
-    HEADERS = {'Authorization': 'Basic Tk80MDE6Tk80MDE='}
+    HEADERS = {}
 
     FORM_FIELD_USER = 'usr'
     FORM_FIELD_PASS = 'pwd'
