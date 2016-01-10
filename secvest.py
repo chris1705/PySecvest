@@ -27,6 +27,7 @@ class Secvest(object):
     PATH_SYSTEM = '/system/'
     PATH_PARTITIONS = '/system/partitions/'
     PATH_PARTITION = '/system/partition-%i'
+    PATH_PARTITION_ZONE = '/system/partition-%i/zone'
 
     SSID = 'ssid'
     NO_SSID = '0'
@@ -42,34 +43,6 @@ class Secvest(object):
         self.password = password
         self.cookies = dict()
         self.__authenticate__()
-
-    def __authenticate__(self):
-        response = requests.post(self.__build_uri_for_path__(Secvest.PATH_LOGIN),
-                                 headers=Secvest.HEADERS,
-                                 data={Secvest.FORM_FIELD_USER: self.username,
-                                       Secvest.FORM_FIELD_PASS: self.password},
-                                 verify=False,
-                                 cookies=self.cookies)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        self.cookies[Secvest.SSID] = soup.find_all('input', attrs={'id': Secvest.SSID})[0]['value']
-        if self.cookies[Secvest.SSID] == Secvest.NO_SSID:
-            raise SecvestException('Login on Secvest Failed! Either the user is logged, or your credentials are wrong.')
-        else:
-            logging.debug('Logged in with SSID %s' % self.cookies[Secvest.SSID])
-
-    def __logout__(self):
-        logging.debug('Logging out from Secvest')
-        requests.post(self.__build_uri_for_path__(Secvest.PATH_INDEX),
-                      headers=Secvest.HEADERS,
-                      data={'logout': 'logout', Secvest.SSID: ''},
-                      cookies=self.cookies,
-                      verify=False)
-
-    def __build_base_uri__(self):
-        return 'https://%s:%i' % (self.hostname, self.port)
-
-    def __build_uri_for_path__(self, path):
-        return self.__build_base_uri__() + path
 
     def get_system(self):
         """
@@ -110,8 +83,7 @@ class Secvest(object):
         :return: A partition
         :rtype: dict
         """
-        if partition < 1 or partition > 4:
-            raise SecvestException('Only partitions 1-4 available')
+        Secvest.__validate_partition__(partition)
         response = requests.get(self.__build_uri_for_path__(Secvest.PATH_PARTITION % partition),
                                 headers=Secvest.HEADERS,
                                 cookies=self.cookies,
@@ -142,6 +114,20 @@ class Secvest(object):
                                 verify=False)
         return response.json()
 
+    def get_zones_by_partition(self, partition=1):
+        """
+        Method gets a list of zones assigned to the passed partition
+        :param partition:
+        :return: A list of zones
+        :rtype: list
+        """
+        Secvest.__validate_partition__(partition)
+        response = requests.get(self.__build_uri_for_path__(Secvest.PATH_PARTITION_ZONE % partition),
+                                headers=Secvest.HEADERS,
+                                cookies=self.cookies,
+                                verify=False)
+        return response.json()
+
     def logout(self):
         """
         Logs out from the current session.
@@ -149,6 +135,39 @@ class Secvest(object):
         :rtype: None
         """
         self.__logout__()
+
+    @staticmethod
+    def __validate_partition__(partition=0):
+        if partition < 1 or partition > 4:
+            raise SecvestException('Only partitions 1-4 available')
+
+    def __authenticate__(self):
+        response = requests.post(self.__build_uri_for_path__(Secvest.PATH_LOGIN),
+                                 headers=Secvest.HEADERS,
+                                 data={Secvest.FORM_FIELD_USER: self.username,
+                                       Secvest.FORM_FIELD_PASS: self.password},
+                                 verify=False,
+                                 cookies=self.cookies)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        self.cookies[Secvest.SSID] = soup.find_all('input', attrs={'id': Secvest.SSID})[0]['value']
+        if self.cookies[Secvest.SSID] == Secvest.NO_SSID:
+            raise SecvestException('Login on Secvest Failed! Either the user is logged, or your credentials are wrong.')
+        else:
+            logging.debug('Logged in with SSID %s' % self.cookies[Secvest.SSID])
+
+    def __build_base_uri__(self):
+        return 'https://%s:%i' % (self.hostname, self.port)
+
+    def __build_uri_for_path__(self, path):
+        return self.__build_base_uri__() + path
+
+    def __logout__(self):
+        logging.debug('Logging out from Secvest')
+        requests.post(self.__build_uri_for_path__(Secvest.PATH_INDEX),
+                      headers=Secvest.HEADERS,
+                      data={'logout': 'logout', Secvest.SSID: ''},
+                      cookies=self.cookies,
+                      verify=False)
 
 
 class SecvestException(Exception):
