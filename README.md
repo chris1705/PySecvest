@@ -33,9 +33,9 @@ secvest.logout()
 ## Methods
 
 * get_system()
-* get_partition(partition=[INTEGER])
+* get_partition(partition=[1-4])
 * get_partitions()
-* get_zones_by_partition(partition=[INTEGER])
+* get_zones_by_partition(partition=[1-4])
 * logout
 
 ## Background information
