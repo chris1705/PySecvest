@@ -2,7 +2,7 @@
 Python module to access status information provided by ABUS Secvest alarm system by using non-official REST API.
 
 The current version was just written 'quick and dirty', so it does only provide read-only features. Please do not use it in production unless you know what you're doing.
-PySecvest uses the same authentification as the web server prodived by ABUS.
+PySecvest uses the same authentification as the web client prodived by ABUS.
 
 ## Compatibility
 I have tested PySecvest with the current Abus Secvest (FUAA50000) with the firmware verion v.1.00.00. May be it is also compatible with other versions, but I can't test it. Please let me know, if you used it with Secvest 2WAY or Secvest IP sucessfully.
