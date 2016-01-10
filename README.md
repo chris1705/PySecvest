@@ -22,10 +22,21 @@ print secvest.get_partitions()
 # Get info about partition 1
 print secvest.get_partition(1)
 
+# Get all zones assignedto partition 1
+print secvest.get_zones_by_partition(1)
+
 # Logout from secvest
 secvest.logout()
 
 ```
+
+## Methods
+
+* get_system()
+* get_partition(partition=[INTEGER])
+* get_partitions()
+* get_zones_by_partition(partition=[INTEGER])
+* logout
 
 ## Background information
 ### Authentication
