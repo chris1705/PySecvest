@@ -30,6 +30,7 @@ secvest.logout()
 ## Background information
 ### Authentication
 ABUS uses unusual way to authenticate the user within the web client. When opening the web interface the landing page is `/sec_login.cgi`, providing a login form. After entering the user data, it will be send via `HTTP POST` to `/sec_login.cgi`. 
-The Secvest will fill a hidden input field with a SSID, from within the client a cookie with the SSID will be set. Besides the clients sets a header field with `Authorization: Basic Tk80MDE6Tk80MDE=` on each request.
+The Secvest will fill a hidden input field with a SSID, from within the client a cookie with the SSID will be set. 
+Besides the clients sets a header field with `Authorization: Basic Tk80MDE6Tk80MDE=` on each request.
 
 The user can be also authenticated by using Basic Auth, without setting the cookie but request take longer (about five times longer). `POST`ing wrong credentials on `/sec_login.cgi` will cause an alarm, by using Basic Auth there seems not to be any limitation.
