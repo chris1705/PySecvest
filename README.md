@@ -3,10 +3,10 @@ Python module to access status information provided by ABUS Secvest alarm system
 
 The current version was just written 'quick and dirty', so it does only provide read-only features. Please do not use it in production unless you know what you're doing.
 
-# Compatibility
-Probably the module is only compatible with the current version of the Abus Secvest (FUAA50000). I have tested it with 
+## Compatibility
+I have tested PySecvest with the current Abus Secvest (FUAA50000) with the firmware verion v.1.00.00. May be it is also compatible with other versions, but I can't test it. Please let me know, if you used it with Secvest 2WAY or Secvest IP sucessfully.
 
-# Example usage
+## Example usage
 ```python
 
 from secvest import Secvest
